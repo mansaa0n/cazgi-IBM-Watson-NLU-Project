@@ -1,4 +1,22 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
+
+function getNLUInstance(){
+    let api_key = process.env.API_KEY;
+    let api_url = process.env.API_URL;
+
+    const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
+        version: '2021-03-25',
+        authenticator: new IamAuthenticator({
+        apikey: api_key,
+    }),
+         serviceUrl: api_url,
+    });
+    return naturalLanguageUnderstanding
+}
+
+
 const app = new express();
 
 app.use(express.static('client'))
